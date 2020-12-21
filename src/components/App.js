@@ -168,14 +168,17 @@ function Towns({ towns }) {
 }
 
 function Cities({ cities }) {
-  const [showTowns, setShowTowns] = useState({ towns: false, selected: "" });
-  const { towns, selected } = showTowns;
+  const [selected, setSelected] = useState([]);
 
   const handleClick = ({ target }) => {
-    const newShowTowns = { ...showTowns };
-    newShowTowns.towns = !newShowTowns.towns;
-    newShowTowns.selected = target.innerText;
-    setShowTowns(newShowTowns);
+    const newSelected = [...selected];
+    const index = newSelected.indexOf(target.innerText);
+    if (index === -1) {
+      newSelected.push(target.innerText);
+    } else {
+      delete newSelected[index];
+    }
+    setSelected(newSelected);
   };
 
   return (
@@ -189,7 +192,7 @@ function Cities({ cities }) {
             className="list-group-item">
             {city.name}
           </li>
-          {towns && selected === city.name && <Towns towns={city.towns} />}
+          {selected.indexOf(city.name) !== -1 && <Towns towns={city.towns} />}
         </div>
       ))}
     </ul>
@@ -197,14 +200,17 @@ function Cities({ cities }) {
 }
 
 function State({ states }) {
-  const [showCities, setShowCities] = useState({ cities: false, selected: "" });
-  const { cities, selected } = showCities;
+  const [selected, setSelected] = useState([]);
 
   const handleClick = ({ target }) => {
-    const newShowCities = { ...showCities };
-    newShowCities.cities = !newShowCities.cities;
-    newShowCities.selected = target.innerText;
-    setShowCities(newShowCities);
+    const newSelected = [...selected];
+    const index = newSelected.indexOf(target.innerText);
+    if (index === -1) {
+      newSelected.push(target.innerText);
+    } else {
+      delete newSelected[index];
+    }
+    setSelected(newSelected);
   };
   return (
     <ul className="list-group">
@@ -217,7 +223,7 @@ function State({ states }) {
             className="list-group-item">
             {state.name}
           </li>
-          {cities && selected === state.name && (
+          {selected.indexOf(state.name) !== -1 && (
             <Cities cities={state.cities} />
           )}
         </div>
