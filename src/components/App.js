@@ -171,9 +171,10 @@ function Cities({ cities }) {
   const [selected, setSelected] = useState([]);
 
   const handleClick = ({ target }) => {
-    const newSelected = [...selected];
+    let newSelected = [...selected];
     const index = newSelected.indexOf(target.innerText);
     if (index === -1) {
+      newSelected = [];
       newSelected.push(target.innerText);
     } else {
       delete newSelected[index];
@@ -203,9 +204,10 @@ function State({ states }) {
   const [selected, setSelected] = useState([]);
 
   const handleClick = ({ target }) => {
-    const newSelected = [...selected];
+    let newSelected = [...selected];
     const index = newSelected.indexOf(target.innerText);
     if (index === -1) {
+      newSelected = [];
       newSelected.push(target.innerText);
     } else {
       delete newSelected[index];
