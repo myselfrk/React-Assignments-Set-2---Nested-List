@@ -167,8 +167,8 @@ function Towns({ towns }) {
   );
 }
 
-function Cities(props) {
-  const { cities, showTowns, setShowTowns } = props;
+function Cities({ cities }) {
+  const [showTowns, setShowTowns] = useState({ towns: false, selected: "" });
   const { towns, selected } = showTowns;
 
   const handleClick = ({ target }) => {
@@ -183,7 +183,7 @@ function Cities(props) {
       {cities.map((city, index) => (
         <div>
           <li
-            key={city.name + index}
+            key={city.name}
             id={`city${index + 1}`}
             onClick={handleClick}
             className="list-group-item">
@@ -196,8 +196,8 @@ function Cities(props) {
   );
 }
 
-function State(props) {
-  const { states, showCities, setShowCities, showTowns, setShowTowns } = props;
+function State({ states }) {
+  const [showCities, setShowCities] = useState({ cities: false, selected: "" });
   const { cities, selected } = showCities;
 
   const handleClick = ({ target }) => {
@@ -205,10 +205,6 @@ function State(props) {
     newShowCities.cities = !newShowCities.cities;
     newShowCities.selected = target.innerText;
     setShowCities(newShowCities);
-
-    const newShowTowns = { ...showTowns };
-    newShowTowns.towns = false;
-    setShowTowns(newShowTowns);
   };
   return (
     <ul className="list-group">
@@ -222,11 +218,7 @@ function State(props) {
             {state.name}
           </li>
           {cities && selected === state.name && (
-            <Cities
-              showTowns={showTowns}
-              setShowTowns={setShowTowns}
-              cities={state.cities}
-            />
+            <Cities cities={state.cities} />
           )}
         </div>
       ))}
@@ -235,12 +227,9 @@ function State(props) {
 }
 
 function App() {
-  const [showCities, setShowCities] = useState({ cities: false, selected: "" });
-  const [showTowns, setShowTowns] = useState({ towns: false, selected: "" });
-  let rest = { showCities, setShowCities, showTowns, setShowTowns };
   return (
     <div id="main">
-      <State {...rest} states={states} />
+      <State states={states} />
     </div>
   );
 }
