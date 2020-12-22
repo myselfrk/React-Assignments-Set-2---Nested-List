@@ -1,7 +1,6 @@
 import React, { Component, useState } from "react";
-import "bootstrap/dist/css/bootstrap.css";
 import "./../styles/App.css";
-import State from "./state";
+import States from "./state";
 
 // Do not alter the states const and values inside it.
 const states = [
@@ -159,7 +158,7 @@ const states = [
 function App() {
   return (
     <div id="main">
-      <State states={states} />
+      <States states={states} />
     </div>
   );
 }

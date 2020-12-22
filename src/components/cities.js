@@ -1,36 +1,33 @@
-import React, { useState } from "react";
-import Towns from "./towns";
+import React from "react";
+import Town from "./towns";
 
-function Cities({ cities }) {
-  const [selected, setSelected] = useState(-1);
+export default function City({ city, index }) {
+  const [townIndex, setTownIndex] = React.useState(index);
 
-  const handleClick = ({ target }) => {
-    let newSelected = -1;
-    cities.forEach(function (item, index) {
-      if (item.name === target.innerText) newSelected = index;
-    });
-
-    if (selected === newSelected) {
-      setSelected(-1);
-    } else {
-      setSelected(newSelected);
+  const handleTown = (event) => {
+    let index = event.target.id;
+    index = index.charAt(index.length - 1) - 1;
+    if (townIndex === index) {
+      setTownIndex(-1);
+      return;
     }
+    setTownIndex(index);
   };
-
   return (
-    <div>
-      {cities.map((city, index) => (
-        <button
-          key={city.name}
-          id={`city${index + 1}`}
-          onClick={handleClick}
-          className="btn btn-primary m-2">
-          {city.name}
-        </button>
-      ))}
-      {selected !== -1 && <Towns towns={cities[selected].towns} />}
-    </div>
+    <>
+      <div>
+        Cities in {city.name} :
+        {city.cities.map((item, index) => (
+          <button
+            className="cities"
+            onClick={handleTown}
+            id={`city${index + 1}`}
+            key={item.name}>
+            {item.name}
+          </button>
+        ))}
+      </div>
+      {townIndex !== -1 && <Town town={city.cities[townIndex]} />}
+    </>
   );
 }
-
-export default Cities;

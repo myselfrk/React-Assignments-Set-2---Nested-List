@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 
-function Towns({ towns }) {
+export default function Town({ town }) {
   return (
-    <h3>
-      {towns.map((town, index) => (
-        <span
-          key={town.name}
-          id={`town${index + 1}`}
-          className="badge badge-primary m-2">
-          {town.name}
-        </span>
-      ))}
-    </h3>
+    <>
+      <div>
+        Towns in {town.name} :
+        {town.towns.map((item, index) => (
+          <li id={`town${index + 1}`} key={index}>
+            {item.name}
+          </li>
+        ))}
+      </div>
+    </>
   );
 }
-
-export default Towns;
