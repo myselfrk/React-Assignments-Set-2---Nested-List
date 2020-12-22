@@ -157,13 +157,16 @@ const states = [
 
 function Towns({ towns }) {
   return (
-    <ul className="list-group ml-4">
+    <h3>
       {towns.map((town, index) => (
-        <li key={town.name} id={`town${index + 1}`} className="list-group-item">
+        <span
+          key={town.name}
+          id={`town${index + 1}`}
+          className="badge badge-primary m-2">
           {town.name}
-        </li>
+        </span>
       ))}
-    </ul>
+    </h3>
   );
 }
 
@@ -184,20 +187,18 @@ function Cities({ cities }) {
   };
 
   return (
-    <ul className="list-group ml-4">
+    <div>
       {cities.map((city, index) => (
-        <div>
-          <li
-            key={city.name}
-            id={`city${index + 1}`}
-            onClick={handleClick}
-            className="list-group-item">
-            {city.name}
-          </li>
-          {cities[selected] === city && <Towns towns={city.towns} />}
-        </div>
+        <button
+          key={city.name}
+          id={`city${index + 1}`}
+          onClick={handleClick}
+          className="btn btn-primary m-2">
+          {city.name}
+        </button>
       ))}
-    </ul>
+      {selected !== -1 && <Towns towns={cities[selected].towns} />}
+    </div>
   );
 }
 
@@ -217,20 +218,18 @@ function State({ states }) {
     }
   };
   return (
-    <ul className="list-group">
+    <div>
       {states.map((state, index) => (
-        <div>
-          <li
-            key={state.name}
-            onClick={handleClick}
-            id={`state${index + 1}`}
-            className="list-group-item">
-            {state.name}
-          </li>
-          {states[selected] === state && <Cities cities={state.cities} />}
-        </div>
+        <button
+          key={state.name}
+          onClick={handleClick}
+          id={`state${index + 1}`}
+          className="btn btn-primary m-2">
+          {state.name}
+        </button>
       ))}
-    </ul>
+      {selected !== -1 && <Cities cities={states[selected].cities} />}
+    </div>
   );
 }
 
