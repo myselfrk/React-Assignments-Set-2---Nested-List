@@ -168,18 +168,19 @@ function Towns({ towns }) {
 }
 
 function Cities({ cities }) {
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState(-1);
 
   const handleClick = ({ target }) => {
-    let newSelected = [...selected];
-    const index = newSelected.indexOf(target.innerText);
-    if (index === -1) {
-      newSelected = [];
-      newSelected.push(target.innerText);
+    let newSelected = -1;
+    cities.forEach(function (item, index) {
+      if (item.name === target.innerText) newSelected = index;
+    });
+
+    if (selected === newSelected) {
+      setSelected(-1);
     } else {
-      delete newSelected[index];
+      setSelected(newSelected);
     }
-    setSelected(newSelected);
   };
 
   return (
@@ -193,7 +194,7 @@ function Cities({ cities }) {
             className="list-group-item">
             {city.name}
           </li>
-          {selected.indexOf(city.name) !== -1 && <Towns towns={city.towns} />}
+          {cities[selected] === city && <Towns towns={city.towns} />}
         </div>
       ))}
     </ul>
@@ -201,18 +202,19 @@ function Cities({ cities }) {
 }
 
 function State({ states }) {
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState(-1);
 
   const handleClick = ({ target }) => {
-    let newSelected = [...selected];
-    const index = newSelected.indexOf(target.innerText);
-    if (index === -1) {
-      newSelected = [];
-      newSelected.push(target.innerText);
+    let newSelected = -1;
+    states.forEach(function (item, index) {
+      if (item.name === target.innerText) newSelected = index;
+    });
+
+    if (selected === newSelected) {
+      setSelected(-1);
     } else {
-      delete newSelected[index];
+      setSelected(newSelected);
     }
-    setSelected(newSelected);
   };
   return (
     <ul className="list-group">
@@ -225,9 +227,7 @@ function State({ states }) {
             className="list-group-item">
             {state.name}
           </li>
-          {selected.indexOf(state.name) !== -1 && (
-            <Cities cities={state.cities} />
-          )}
+          {states[selected] === state && <Cities cities={state.cities} />}
         </div>
       ))}
     </ul>
